@@ -1,8 +1,7 @@
-import { useColorScheme as _useColorScheme } from 'react-native-appearance';
+import { useColorScheme as useNativeColorScheme } from 'react-native';
 
-export const useColorScheme = () => {
-  const scheme = _useColorScheme();
-  return scheme === 'dark' ? 'dark' : 'light';
-};
+export function useColorScheme(): 'light' | 'dark' {
+  return useNativeColorScheme() === 'dark' ? 'dark' : 'light';
+}
 
 export default useColorScheme;

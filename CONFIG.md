@@ -1,11 +1,18 @@
 # Configuration
 
-1. Firebase
-- Ensure `google-services.json` (Android) is present in the project root if using native builds.
-- The React Native app uses `@react-native-firebase/database`. Configure your Firebase project and ensure the Realtime Database has a `controller/` node with sensor & device state data.
+## Firebase mobile app
 
-2. Images & assets
-- Replace `assets/images/bg.png` with your desired background image.
+1. Create a Firebase project and Realtime Database.
+2. Add the Android application and place the downloaded `google-services.json` in the native Android project when building locally. Add `GoogleService-Info.plist` for iOS.
+3. Configure database rules to allow only the authenticated access your deployment needs. Do not use public read/write rules in production.
+4. Create the `controller/` schema shown in the README.
 
-3. Secrets
-- If you want to remove secrets from the repository, remove the firebase auth tokens and WiFi credentials from the Arduino/ESP sketches and keep them locally.
+These platform files are ignored by Git. CI should receive them through the build system's encrypted secrets, never as committed files.
+
+## Firmware
+
+Firmware credentials must be supplied locally. Prefer a `secrets.h` file excluded by `.gitignore`, or your board platform's secret manager. The committed sketches must contain no Wi-Fi passwords or Firebase tokens. Rotate credentials immediately if they were ever exposed.
+
+## Assets
+
+Replace the placeholder images under `assets/images/` with valid PNG/JPEG files before shipping. Keep large generated assets out of Git unless they are required by the app.
